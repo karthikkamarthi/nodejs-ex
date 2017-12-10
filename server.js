@@ -110,6 +110,7 @@ initDb(function(err){
 app.listen(port, ip);
 
 console.log(path.join(__dirname, 'images'));
+app.use('/BingSiteAuth.xml', express.static(path.join(__dirname, 'seo-info/BingSiteAuth.xml')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 console.log('Server running on http://%s:%s', ip, port);
 

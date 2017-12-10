@@ -1,11 +1,13 @@
 //  OpenShift sample Node application
 var express = require('express'),
     app     = express(),
-    morgan  = require('morgan');
+    morgan  = require('morgan'),
+    path =  require('path');
     
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
+
 app.use(morgan('combined'))
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
@@ -56,6 +58,9 @@ var initDb = function(callback) {
   });
 };
 
+
+
+
 app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
@@ -103,6 +108,9 @@ initDb(function(err){
 });
 
 app.listen(port, ip);
+
+console.log(path.join(__dirname, 'images'));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 console.log('Server running on http://%s:%s', ip, port);
 
 module.exports = app ;
